@@ -1,1 +1,1 @@
-# python_scoala_informala
+# python-grupa-2
