@@ -1,9 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="12891ef5-ffae-4af6-9aa4-04f650473d66" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/pyvenv.cfg" beforeDir="false" afterPath="$PROJECT_DIR$/pyvenv.cfg" afterDir="false" />
-    </list>
+    <list default="true" id="12891ef5-ffae-4af6-9aa4-04f650473d66" name="Default Changelist" comment="" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -120,6 +118,7 @@
       <workItem from="1625765460547" duration="5000" />
       <workItem from="1625765501527" duration="1072000" />
       <workItem from="1625852241352" duration="2492000" />
+      <workItem from="1625913388912" duration="67000" />
     </task>
     <servers />
   </component>
