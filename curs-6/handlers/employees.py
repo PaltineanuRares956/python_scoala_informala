@@ -17,3 +17,4 @@ def fire(user, employer):
     employee = session.query(Employee).filter(Employee.user == user, Employee.employer == employer)
     employee.delete()
     session.commit()
+
