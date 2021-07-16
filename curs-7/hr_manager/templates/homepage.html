@@ -1,0 +1,13 @@
+{% extends 'base.html' %}
+{% block content %}
+
+    <h3>Project developed in {{framework_name}}</h3>
+    <p>This is my first templaye</p>
+    {% if employers %}
+        <ul>
+            {% for employer in employers %}
+                <li>{{employer.name}} - {{employer.created_at}}</li>
+            {% endfor %}
+        </ul>
+    {% endif %}
+{% endblock %}
