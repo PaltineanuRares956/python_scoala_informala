@@ -40,6 +40,7 @@ class Alter_User:
 
     def modify(self, user):
         pass
+
     def draw(self, brand_name=None, users=None):
         if self.is_content_loading:
             self.loading_label = tkinter.Label(
