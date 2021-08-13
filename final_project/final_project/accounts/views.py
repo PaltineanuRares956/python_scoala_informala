@@ -14,9 +14,7 @@ def register_view(request):
     form = CreateAccountForm()
     if request.method == "POST":
         form = CreateAccountForm(request.POST)
-        print('123')
         if form.is_valid():
-            print('234')
             form.save()
             name = form.cleaned_data.get('name')
             messages.success(request, 'Account created: ' + name)
@@ -31,20 +29,24 @@ def login_view(request):
 
     form = LoginForm()
     if request.POST:
-        print('abcabcbac')
-
-        form = LoginForm(request.POST)
+        print('aaa')
         if 'Register' in request.POST:
             return HttpResponseRedirect(reverse('register'))
+        form = LoginForm(request.POST)
+        print('asdasd')
         if form.is_valid():
             username = form.cleaned_data.get('username')
             password = form.cleaned_data.get('password')
+            # authenticate!!!
             try:
                 account = Account.objects.get(username=username, password=password)
             except Account.DoesNotExist:
                 account = None
+
             if account is None:
-                return HttpResponseRedirect(reverse('register'))
+                messages.error(request, 'Username or password incorrect')
+                return HttpResponseRedirect(reverse('login'))
+            request.session['username'] = request.POST.get('username')
             return HttpResponseRedirect(reverse('home'))
 
     context['form'] = form
@@ -53,4 +55,7 @@ def login_view(request):
 
 def home_view(request):
     context = {}
+    account = request.session.get('account')
+    if account is not None:
+        context['account'] = account
     return render(request, 'home.html', context)
