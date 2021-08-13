@@ -44,7 +44,7 @@ class UserManager(BaseUserManager):
 
 class Account(AbstractBaseUser, PermissionsMixin):
     is_admin = models.BooleanField(default=False)
-    username = models.CharField(max_length=30,
+    username = models.CharField(max_length=64,
                                 verbose_name='Username:',
                                 blank=False,
                                 unique=True,
@@ -71,15 +71,5 @@ class Account(AbstractBaseUser, PermissionsMixin):
     def __str__(self):
         return self.username
 
-    # username = models.CharField(max_length=30)
-#
-    # USERNAME_FIELD = username
-    # REQUIRED_FIELDS = []
-#
-    # class Meta:
-    #     db_table = 'final_project'
-    # name = models.CharField(max_length=30)
-    # password = models.CharField(max_length=30)
-#
-    # def __str__(self):
-    #     return self.name
+
+
