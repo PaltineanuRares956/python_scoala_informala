@@ -3,8 +3,11 @@
 <form method="post">
     {% csrf_token %}
 
+    {% for message in messages %}
+        <p style="color: red">{{ message }}</p>
+    {% endfor %}
     {{ form.as_p }}
 
     <input type="submit" value="Login">
-    <input type="button" value="Register" name="Register">
+    <input type="submit" value="Register" name="Register">
 </form>
