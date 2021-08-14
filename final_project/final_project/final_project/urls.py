@@ -15,15 +15,19 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path, include
-from users.views import register_view, login_view, home_view
+from users.views import register_view, home_view, login_view, MyLogoutView
 from django.conf.urls import url
 from django.views.generic import RedirectView
+from django.contrib.auth import views
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', home_view, name='home'),
-    path('', include('django.contrib.auth.urls')),
+    # path('', include('django.contrib.auth.urls')),
+    #path('logout/', log_out),
     path('register/$', register_view, name='register'),
     path('login/', login_view, name='login'),
+    #path('logout/', views.LogoutView.as_view(), name='logout'),
+    path('logout/', MyLogoutView.as_view(), name='logout'),
     url(r'^favicon\.ico$',RedirectView.as_view(url='/static/images/favicon.ico')),
 ]

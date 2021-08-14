@@ -7,10 +7,15 @@
     }
 </style>
 
+
     <ul>
         <li>Home</li>
     {% if user.is_authenticated %}
-        <li><a href="/logout">Log out</a></li>
+        <form action="login" method="GET">
+            <li>
+                <button type="submit">Log out</button>
+            </li>
+        </form>
     {% else %}
         <li>Log in</li>
         <li>Register</li>

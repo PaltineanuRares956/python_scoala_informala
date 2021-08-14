@@ -2,12 +2,15 @@ from django.shortcuts import render, redirect, reverse
 from .forms import CreateUserForm, LoginForm
 from .models import User
 from django.contrib import messages
-from django.contrib.auth import authenticate, logout, login
+from django.contrib.auth import logout, login
 from django.http import HttpResponseRedirect
+from django.contrib.auth import views
+
 # Create your views here.
 
 
 def register_view(request):
+    logout(request)
     context = {}
     if request.user.is_authenticated:
         return redirect('')
@@ -30,6 +33,7 @@ def register_view(request):
 
 
 def login_view(request):
+    logout(request)
     context = {}
 
     form = LoginForm()
@@ -66,3 +70,7 @@ def home_view(request):
     #user = User.objects.get(username=username)
     #context['user'] = user
     return render(request, 'home.html', context)
+
+
+class MyLogoutView(views.LogoutView):
+    template_name = 'login.html'
