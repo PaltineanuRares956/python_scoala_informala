@@ -37,7 +37,8 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'accounts',
+    'users',
+    'products',
 ]
 
 MIDDLEWARE = [
@@ -84,6 +85,8 @@ DATABASES = {
     }
 }
 
+# LOGIN_REDIRECT_URL = 'home'
+# LOGOUT_REDIRECT_URL = 'login'
 
 # Password validation
 # https://docs.djangoproject.com/en/3.2/ref/settings/#auth-password-validators
@@ -97,7 +100,7 @@ AUTH_PASSWORD_VALIDATORS = [
     # },
 ]
 
-AUTH_USER_MODEL = 'accounts.Account'
+AUTH_USER_MODEL = 'users.User'
 # Internationalization
 # https://docs.djangoproject.com/en/3.2/topics/i18n/
 

@@ -5,7 +5,9 @@
         {% csrf_token %}
 
         {{ form.as_p }}
-    <input type="submit" value="Register" name="Register">
+
+        <input formnovalidate type="submit" value="Login" name="Login">
+        <input type="submit" value="Register" name="Register">
     </form>
 
 {% endblock %}

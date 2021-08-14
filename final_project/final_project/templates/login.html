@@ -4,10 +4,15 @@
     {% csrf_token %}
 
     {% for message in messages %}
-        <p style="color: red">{{ message }}</p>
+        {% if message.level == DEFAULT_MESSAGE_LEVELS.SUCCESS %}
+            <p style="color: green">{{ message }}</p>
+        {% else %}
+            <p style="color: red">{{ message }}</p>
+        {% endif %}
     {% endfor %}
     {{ form.as_p }}
 
     <input type="submit" value="Login">
-    <input type="submit" value="Register" name="Register">
+    <input formnovalidate type="submit" value="Register" name="Register">
+
 </form>
