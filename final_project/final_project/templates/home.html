@@ -1,9 +1,24 @@
-<h1>This is the home page!
+<style>
+    li {
+        display: inline;
+        float: right;
+        margin: 10px;
+        font-size: 25px;
+    }
+</style>
 
+
+    <ul>
+        <li>Home</li>
     {% if user.is_authenticated %}
-        Hello
-
+        <form action="login" method="GET">
+            <li>
+                <button type="submit">Log out</button>
+            </li>
+        </form>
     {% else %}
-        Bye
+        <li>Log in</li>
+        <li>Register</li>
     {% endif %}
+    </ul>
 </h1>

@@ -2,12 +2,15 @@ from django.shortcuts import render, redirect, reverse
 from .forms import CreateUserForm, LoginForm
 from .models import User
 from django.contrib import messages
-from django.contrib.auth import authenticate, login
+from django.contrib.auth import logout, login
 from django.http import HttpResponseRedirect
+from django.contrib.auth import views
+
 # Create your views here.
 
 
 def register_view(request):
+    logout(request)
     context = {}
     if request.user.is_authenticated:
         return redirect('')
@@ -30,6 +33,7 @@ def register_view(request):
 
 
 def login_view(request):
+    logout(request)
     context = {}
 
     form = LoginForm()
@@ -41,17 +45,17 @@ def login_view(request):
             username = form.cleaned_data.get('username')
             password = form.cleaned_data.get('password')
             # authenticate!!!
-            # try:
-            #     account = User.objects.get(username=username, password=password)
-            # except User.DoesNotExist:
-            #     account = None
-            account = authenticate(request, username=username, password=password)
+            try:
+                account = User.objects.get(username=username, password=password)
+            except User.DoesNotExist:
+                account = None
+            # account = authenticate(request, username=username, password=password)
             if account is None:
                 messages.error(request, 'Username or password incorrect')
                 return HttpResponseRedirect(reverse('login'))
             print('123123')
             login(request, account)
-            request.session['username'] = request.POST.get('username')
+            # request.session['username'] = request.POST.get('username')
             return HttpResponseRedirect(reverse('home'))
 
     context['form'] = form
@@ -60,9 +64,13 @@ def login_view(request):
 
 def home_view(request):
     context = {}
-    username = request.session.get('username')
-    if username is None:
-        return HttpResponseRedirect(reverse('login'))
-    user = User.objects.get(username=username)
-    context['user'] = user
+    #username = request.session.get('username')
+    #if username is None:
+    #    return HttpResponseRedirect(reverse('login'))
+    #user = User.objects.get(username=username)
+    #context['user'] = user
     return render(request, 'home.html', context)
+
+
+class MyLogoutView(views.LogoutView):
+    template_name = 'login.html'
