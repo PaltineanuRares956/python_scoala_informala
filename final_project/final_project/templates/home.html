@@ -1,6 +1,9 @@
 <h1>This is the home page!
 
-    {% if account %}
-        Hello {{ account.username }}
+    {% if user.is_authenticated %}
+        Hello
+
+    {% else %}
+        Bye
     {% endif %}
 </h1>

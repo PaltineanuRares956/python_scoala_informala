@@ -1,27 +1,32 @@
 from django.shortcuts import render, redirect, reverse
-from .forms import CreateAccountForm, LoginForm
-from .models import Account
+from .forms import CreateUserForm, LoginForm
+from .models import User
 from django.contrib import messages
+from django.contrib.auth import authenticate, login
 from django.http import HttpResponseRedirect
 # Create your views here.
 
 
 def register_view(request):
     context = {}
-    #if request.user.is_authenticated:
-    #    return redirect('')
+    if request.user.is_authenticated:
+        return redirect('')
 
-    form = CreateAccountForm()
+    form = CreateUserForm()
     if request.method == "POST":
-        form = CreateAccountForm(request.POST)
+
+        if 'Login' in request.POST:
+            return HttpResponseRedirect(reverse('login'))
+
+        form = CreateUserForm(request.POST)
+        print(form)
         if form.is_valid():
             form.save()
-            name = form.cleaned_data.get('name')
-            messages.success(request, 'Account created: ' + name)
+            messages.info(request, 'Account created')
             return redirect('login')
-    else:
-        context['form'] = form
-        return render(request, 'register.html', context)
+
+    context['form'] = form
+    return render(request, 'register.html', context)
 
 
 def login_view(request):
@@ -29,23 +34,23 @@ def login_view(request):
 
     form = LoginForm()
     if request.POST:
-        print('aaa')
         if 'Register' in request.POST:
             return HttpResponseRedirect(reverse('register'))
         form = LoginForm(request.POST)
-        print('asdasd')
         if form.is_valid():
             username = form.cleaned_data.get('username')
             password = form.cleaned_data.get('password')
             # authenticate!!!
-            try:
-                account = Account.objects.get(username=username, password=password)
-            except Account.DoesNotExist:
-                account = None
-
+            # try:
+            #     account = User.objects.get(username=username, password=password)
+            # except User.DoesNotExist:
+            #     account = None
+            account = authenticate(request, username=username, password=password)
             if account is None:
                 messages.error(request, 'Username or password incorrect')
                 return HttpResponseRedirect(reverse('login'))
+            print('123123')
+            login(request, account)
             request.session['username'] = request.POST.get('username')
             return HttpResponseRedirect(reverse('home'))
 
@@ -55,7 +60,9 @@ def login_view(request):
 
 def home_view(request):
     context = {}
-    account = request.session.get('account')
-    if account is not None:
-        context['account'] = account
+    username = request.session.get('username')
+    if username is None:
+        return HttpResponseRedirect(reverse('login'))
+    user = User.objects.get(username=username)
+    context['user'] = user
     return render(request, 'home.html', context)

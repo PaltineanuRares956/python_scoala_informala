@@ -1,23 +1,23 @@
-from .models import Account
+from .models import User
 from django import forms
-from django.contrib.auth.forms import UserCreationForm, UserModel
+from django.contrib.auth.forms import UserCreationForm
 
 
-class CreateAccountForm(UserCreationForm):
+class CreateUserForm(UserCreationForm):
     class Meta:
-        model = Account
+        model = User
         fields = (
             'email',
             'username',
+            'password1',
+            'password2',
         )
 
     def save(self, commit=True):
-        account = super(UserCreationForm, self).save(commit=False)
-        account.username = self.cleaned_data['username']
-        if commit:
-            print('111')
-            account.save()
-        print('222')
+        account = super(UserCreationForm, self).save()
+        account.password = self.cleaned_data['password1']
+
+        account.save()
         return account
 
 
@@ -26,7 +26,7 @@ class LoginForm(forms.Form):
     password = forms.CharField(widget=forms.PasswordInput)
 
     class Meta:
-        model = Account
+        model = User
         fields = [
             'username',
             'password',

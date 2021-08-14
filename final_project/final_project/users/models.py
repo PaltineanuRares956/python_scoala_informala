@@ -6,7 +6,7 @@ from django.contrib.auth.models import AbstractBaseUser, BaseUserManager, Permis
 
 class UserManager(BaseUserManager):
 
-    def create_account(self, username, password, email):
+    def create_user(self, username, password, email):
         if not username:
             raise ValueError('Username not defined')
         if not password:
@@ -30,7 +30,7 @@ class UserManager(BaseUserManager):
             raise ValueError('Password not defined')
         if not email:
             raise ValueError('Email not defined')
-        account = self.create_account(
+        account = self.create_user(
             email=self.normalize_email(email),
             username=username,
             password=password
@@ -42,18 +42,18 @@ class UserManager(BaseUserManager):
         return account
 
 
-class Account(AbstractBaseUser, PermissionsMixin):
+class User(AbstractBaseUser, PermissionsMixin):
     is_admin = models.BooleanField(default=False)
-    username = models.CharField(max_length=64,
+    username = models.CharField(max_length=255,
                                 verbose_name='Username:',
                                 blank=False,
                                 unique=True,
                                 default='username')
-    email = models.EmailField(max_length=80,
+    email = models.EmailField(max_length=255,
                               verbose_name='Email:',
                               unique=True,
                               default='email')
-    password = models.CharField(max_length=64,
+    password = models.CharField(max_length=255,
                                 blank=False,
                                 null=False)
 
@@ -62,11 +62,11 @@ class Account(AbstractBaseUser, PermissionsMixin):
     is_superuser = models.BooleanField(default=False)
     USERNAME_FIELD = 'username'
     EMAIL_FIELD = 'email'
-    REQUIRED_FIELDS = []
+    REQUIRED_FIELDS = ['email', 'password']
     objects = UserManager()
 
     class Meta:
-        db_table = 'accounts'
+        db_table = 'users'
 
     def __str__(self):
         return self.username
