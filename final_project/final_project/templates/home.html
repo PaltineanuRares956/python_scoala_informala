@@ -13,11 +13,19 @@
     {% if user.is_authenticated %}
         <form action="login" method="GET">
             <li>
-                <button type="submit">Log out</button>
+                <button
+                        type="submit"
+                        style="padding: 0; border: none; background: none; font-size: 25px;">Log out</button>
             </li>
         </form>
     {% else %}
-        <li>Log in</li>
+        # TODO:
+        <form action="asdasd"></form>
+        <li>
+            <button
+                    type="submit"
+                    style="padding: 0; border: none; background: none; font-size: 25px;">Log in</button>
+        </li>
         <li>Register</li>
     {% endif %}
     </ul>
