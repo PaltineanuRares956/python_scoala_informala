@@ -22,12 +22,12 @@ class Product(models.Model):
     #                                verbose_name='Calories:')
     # TODO:
     proteins = models.DecimalField(decimal_places=2,
-                                   max_digits=2)
+                                   max_digits=4)
 
     # TODO:
     fats = models.DecimalField(decimal_places=2,
-                               max_digits=2)
+                               max_digits=4)
 
     # TODO:
     carbohydrates = models.DecimalField(decimal_places=2,
-                                        max_digits=2)
+                                        max_digits=4)

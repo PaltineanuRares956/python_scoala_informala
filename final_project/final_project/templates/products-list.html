@@ -6,12 +6,41 @@
 {% else %}
 
     {% if queryset %}
-        <ul>
+        <!--
+        <form method="post">
+            <label>
+                Proteins
+                <input type="checkbox" name="Proteins" checked="checked">
+            </label>
+            <br>
+
+            <label>
+                Fats
+                <input type="checkbox" value="See fats" name="Fats" checked="checked">
+            </label>
+            <br>
+
+            <label>
+                Carbohydrates
+                <input type="checkbox" value="See carbohydrates" name="Carbohydrates" checked="checked">
+            </label>
+            <br>
+        </form>
+        -->
+        <ul style="list-style-type: circle">
         {% for instance in queryset %}
             <li>
-                instance.name
-                <label>Proteins:</label>
-                instance.proteins
+                <label>Name: </label>
+                {{ instance.name }}
+
+                <label>Proteins: </label>
+                {{ instance.proteins }}
+
+                <label>Fats: </label>
+                {{ instance.fats }}
+
+                <label>Carbohydrates: </label>
+                {{ instance.carbohydrates }}
             </li>
         {% endfor %}
         </ul>
