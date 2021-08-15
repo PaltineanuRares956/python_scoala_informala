@@ -31,3 +31,6 @@ class Product(models.Model):
     # TODO:
     carbohydrates = models.DecimalField(decimal_places=2,
                                         max_digits=4)
+
+    def compute_calories(self):
+        return 4 * (self.proteins + self.carbohydrates) + 9 * self.fats

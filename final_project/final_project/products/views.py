@@ -18,8 +18,20 @@ def products_view(request):
 
 def products_list_view(request):
     queryset = Product.objects.all()
-    print(Product.objects.count())
-    context = {
-        'queryset': queryset
-    }
+    context = {}
+    if request.GET:
+        print('123')
+        print(request.GET)
+        if 'Min' and 'Max' in request.GET:
+            min_value = request.GET.get('Min')
+            max_value = request.GET.get('Max')
+
+            if 'Proteins' in request.GET:
+                context['proteins'] = True
+            if 'Fats' in request.GET:
+                context['fats'] = True
+            if 'Carbohydrates' in request.GET:
+                context['carbohydrates'] = True
+
+
     return render(request, 'products-list.html', context)

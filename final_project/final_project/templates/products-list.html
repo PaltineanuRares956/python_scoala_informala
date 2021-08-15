@@ -6,45 +6,81 @@
 {% else %}
 
     {% if queryset %}
-        <!--
-        <form method="post">
+        <style>
+            table, th, td {
+                border: 1px solid black;
+                border-collapse: collapse;
+            }
+            td {
+                text-align: center;
+            }
+        </style>
+        <form method="get">
+            <input type="number" value="Min value" name="Min" placeholder="Min Value">
+            <input type="number" value="Max value" name="Max" placeholder="Max Value">
+            <br>
             <label>
                 Proteins
-                <input type="checkbox" name="Proteins" checked="checked">
+                <input type="radio" name="Proteins">
             </label>
             <br>
 
             <label>
                 Fats
-                <input type="checkbox" value="See fats" name="Fats" checked="checked">
+                <input type="radio" name="Fats">
             </label>
             <br>
 
             <label>
                 Carbohydrates
-                <input type="checkbox" value="See carbohydrates" name="Carbohydrates" checked="checked">
+                <input type="radio" name="Carbohydrates">
             </label>
             <br>
+            <input type="submit" value="Filter" name="Filter">
+
         </form>
-        -->
-        <ul style="list-style-type: circle">
-        {% for instance in queryset %}
-            <li>
-                <label>Name: </label>
-                {{ instance.name }}
+        <h2>The values are presented for 100g portion</h2>
+        <table>
+            <tr>
+                <th>Name</th>
+                <th>Calories</th>
+                <th>Proteins</th>
+                <th>Fats</th>
+                <th>Carbohydrates</th>
+            </tr>
 
-                <label>Proteins: </label>
-                {{ instance.proteins }}
+            {% for instance in queryset %}
+                <tr>
+                    <td>{{ instance.name }}</td>
+                    <td>{{ instance.compute_calories }}</td>
+                    <td>{{ instance.proteins }}</td>
+                    <td>{{ instance.fats }}</td>
+                    <td>{{ instance.carbohydrates }}</td>
+                </tr>
 
-                <label>Fats: </label>
-                {{ instance.fats }}
+            {% endfor %}
+        </table>
 
-                <label>Carbohydrates: </label>
-                {{ instance.carbohydrates }}
-            </li>
-        {% endfor %}
-        </ul>
-    {% else %}
-        <p>There are no products for the moment!</p>
-    {% endif %}
+        {% endif %}
+{#        <ul style="list-style-type: circle">#}
+{#        {% for instance in queryset %}#}
+{#            <li>#}
+{#                <label>Name: </label>#}
+{#                {{ instance.name }}#}
+{##}
+{#                <label>Proteins: </label>#}
+{#                {{ instance.proteins }}#}
+{##}
+{#                <label>Fats: </label>#}
+{#                {{ instance.fats }}#}
+{##}
+{#                <label>Carbohydrates: </label>#}
+{#                {{ instance.carbohydrates }}#}
+{#            </li>#}
+{#        {% endfor %}#}
+{#        </ul>#}
+{#    {% else %}#}
+{#        <p>There are no products for the moment!</p>#}
+{#    {% endif %}#}
+
 {% endif %}
