@@ -14,15 +14,15 @@ class UserManager(BaseUserManager):
         if not email:
             raise ValueError('Email not defined')
 
-        account = self.model(
+        user = self.model(
             username=username,
             email=email
         )
 
-        #account.set_password(password)
-        account.password = password
-        account.save(using=self._db)
-        return account
+        user.set_password(password)
+        # user.password = password
+        user.save(using=self._db)
+        return user
 
     def create_superuser(self, username, password, email):
         if not username:
@@ -31,16 +31,15 @@ class UserManager(BaseUserManager):
             raise ValueError('Password not defined')
         if not email:
             raise ValueError('Email not defined')
-        account = self.create_user(
+        user = self.create_user(
             email=self.normalize_email(email),
             username=username,
             password=password
         )
-        account.is_staff = True
-        account.is_admin = True
-        account.is_superuser=True
-        account.save(using=self._db)
-        return account
+        user.is_staff = True
+        user.is_superuser = True
+        user.save(using=self._db)
+        return user
 
 
 class User(AbstractBaseUser, PermissionsMixin):
@@ -68,8 +67,20 @@ class User(AbstractBaseUser, PermissionsMixin):
     class Meta:
         db_table = 'users'
 
-    def __str__(self):
+    # @property
+    # def is_staff(self):
+    #     return self.is_staff
+#
+    # @property
+    # def is_admin(self):
+    #     return self.is_admin
+#
+    # @property
+    # def is_active(self):
+    #     return self.is_active
+#
+    def get_username(self):
         return self.username
 
-
-
+    def __str__(self):
+        return self.username

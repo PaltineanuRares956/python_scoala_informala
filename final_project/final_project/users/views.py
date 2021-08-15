@@ -64,11 +64,11 @@ def login_view(request):
 
 def home_view(request):
     context = {}
-    #username = request.session.get('username')
-    #if username is None:
-    #    return HttpResponseRedirect(reverse('login'))
-    #user = User.objects.get(username=username)
-    #context['user'] = user
+    # username = request.session.get('username')
+    # if username is None:
+    #     return HttpResponseRedirect(reverse('login'))
+    # user = User.objects.get(username=username)
+    # context['user'] = user
     return render(request, 'home.html', context)
 
 

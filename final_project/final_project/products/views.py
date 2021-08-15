@@ -18,6 +18,7 @@ def products_view(request):
 
 def products_list_view(request):
     queryset = Product.objects.all()
+    print(Product.objects.count())
     context = {
         'queryset': queryset
     }
