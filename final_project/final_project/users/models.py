@@ -19,7 +19,8 @@ class UserManager(BaseUserManager):
             email=email
         )
 
-        account.set_password(password)
+        #account.set_password(password)
+        account.password = password
         account.save(using=self._db)
         return account
 
@@ -43,7 +44,6 @@ class UserManager(BaseUserManager):
 
 
 class User(AbstractBaseUser, PermissionsMixin):
-    is_admin = models.BooleanField(default=False)
     username = models.CharField(max_length=255,
                                 verbose_name='Username:',
                                 blank=False,
@@ -52,7 +52,7 @@ class User(AbstractBaseUser, PermissionsMixin):
     email = models.EmailField(max_length=255,
                               verbose_name='Email:',
                               unique=True,
-                              default='email')
+                              default='email@email.com')
     password = models.CharField(max_length=255,
                                 blank=False,
                                 null=False)
@@ -62,7 +62,7 @@ class User(AbstractBaseUser, PermissionsMixin):
     is_superuser = models.BooleanField(default=False)
     USERNAME_FIELD = 'username'
     EMAIL_FIELD = 'email'
-    REQUIRED_FIELDS = ['email', 'password']
+    REQUIRED_FIELDS = ['email']
     objects = UserManager()
 
     class Meta:

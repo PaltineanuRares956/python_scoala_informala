@@ -1,9 +1,13 @@
+import django.contrib.auth.admin
+
 from .models import User
 from django import forms
 from django.contrib.auth.forms import UserCreationForm
+django.contrib.auth.admin.UserAdmin
 
 
 class CreateUserForm(UserCreationForm):
+
     class Meta:
         model = User
         fields = (

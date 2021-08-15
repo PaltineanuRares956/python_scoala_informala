@@ -1,32 +1,75 @@
 <style>
+    li button:hover {
+        background-color: purple;
+    }
     li {
-        display: inline;
         float: right;
-        margin: 10px;
+    }
+    li button {
+        display: block;
         font-size: 25px;
+        margin: 10px;
+        background-color: green;
+    }
+
+    ul {
+        list-style-type: none;
+        overflow: auto;
+        background-color: chocolate;
+    }
+
+    button {
+        padding: 0;
+        border: none;
+        font-size: 25px
     }
 </style>
 
-
+<form action="login" method="GET">
     <ul>
-        <li>Home</li>
-    {% if user.is_authenticated %}
-        <form action="login" method="GET">
+        {% if user.is_authenticated %}
             <li>
-                <button
-                        type="submit"
-                        style="padding: 0; border: none; background: none; font-size: 25px;">Log out</button>
+                <button type="submit">
+                    Log out
+                </button>
             </li>
-        </form>
-    {% else %}
-        # TODO:
-        <form action="asdasd"></form>
+
+            <li>
+                <button type="submit" formaction="products" >
+                    Products
+                </button>
+            </li>
+        {% else %}
+
+            <li>
+                <button type="submit" formaction="register">
+                    Register
+                </button>
+
+            </li>
+
+            <li>
+                <button type="submit">
+                    Log in
+                </button>
+            </li>
+
+        {% endif %}
+
+
         <li>
-            <button
-                    type="submit"
-                    style="padding: 0; border: none; background: none; font-size: 25px;">Log in</button>
+            <button type="submit" formaction="">
+                Home
+            </button>
         </li>
-        <li>Register</li>
-    {% endif %}
     </ul>
-</h1>
+</form>
+
+{% if not user.is_authenticated %}
+    <p style="text-align: center; font-size: 40px; color: red;">
+        You are not logged in
+        <br>
+        Create an account by pressing the register button or log in with an existing account
+    </p>
+{% endif %}
+
