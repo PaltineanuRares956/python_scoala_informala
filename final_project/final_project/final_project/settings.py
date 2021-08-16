@@ -106,6 +106,11 @@ AUTH_USER_MODEL = 'users.User'
 
 LANGUAGE_CODE = 'en-us'
 
+
+AUTHENTICATION_BACKENDS = (
+    'django.contrib.auth.backends.RemoteUserBackend',
+)
+
 TIME_ZONE = 'UTC'
 
 USE_I18N = True

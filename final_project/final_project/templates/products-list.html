@@ -4,49 +4,33 @@
     <h2>Click <a style="color: red;" href="{% url 'register' %}">here</a> to register</h2>
 
 {% else %}
+    <style>
+        table, th, td {
+            border: 1px solid black;
+            border-collapse: collapse;
+        }
+        td {
+            text-align: center;
+        }
+    </style>
+    <form method="get">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <input formnovalidate type="submit" value="Show All" name="All">
+        <input type="submit" value="Filter" name="Filter">
+    </form>
 
-    {% if queryset %}
-        <style>
-            table, th, td {
-                border: 1px solid black;
-                border-collapse: collapse;
-            }
-            td {
-                text-align: center;
-            }
-        </style>
-        <form method="get">
-            <input type="number" value="Min value" name="Min" placeholder="Min Value">
-            <input type="number" value="Max value" name="Max" placeholder="Max Value">
-            <br>
-            <label>
-                Proteins
-                <input type="radio" name="Proteins">
-            </label>
-            <br>
+    {% if invalid %}
+        Min value should be smaller or equal to max value
+    {% else %}
 
-            <label>
-                Fats
-                <input type="radio" name="Fats">
-            </label>
-            <br>
-
-            <label>
-                Carbohydrates
-                <input type="radio" name="Carbohydrates">
-            </label>
-            <br>
-            <input type="submit" value="Filter" name="Filter">
-
-        </form>
-        <h2>The values are presented for 100g portion</h2>
         <table>
             <tr>
                 <th>Name</th>
                 <th>Calories</th>
                 <th>Proteins</th>
-                <th>Fats</th>
                 <th>Carbohydrates</th>
+                <th>Fats</th>
             </tr>
 
             {% for instance in queryset %}
@@ -54,14 +38,73 @@
                     <td>{{ instance.name }}</td>
                     <td>{{ instance.compute_calories }}</td>
                     <td>{{ instance.proteins }}</td>
-                    <td>{{ instance.fats }}</td>
                     <td>{{ instance.carbohydrates }}</td>
+                    <td>{{ instance.fats }}</td>
                 </tr>
-
             {% endfor %}
         </table>
+    {% endif %}
+{##}
+{#    {% if queryset %}#}
+{#        <style>#}
+{#            table, th, td {#}
+{#                border: 1px solid black;#}
+{#                border-collapse: collapse;#}
+{#            }#}
+{#            td {#}
+{#                text-align: center;#}
+{#            }#}
+{#        </style>#}
+{#        <form method="get">#}
+{#            <input type="number" value="Min value" name="Min" placeholder="Min Value">#}
+{#            <input type="number" value="Max value" name="Max" placeholder="Max Value">#}
+{#            <br>#}
+{#            <label>#}
+{#                Proteins#}
+{#                <input type="radio" name="Proteins">#}
+{#            </label>#}
+{#            <br>#}
+{##}
+{#            <label>#}
+{#                Fats#}
+{#                <input type="radio" name="Fats">#}
+{#            </label>#}
+{#            <br>#}
+{##}
+{#            <label>#}
+{#                Carbohydrates#}
+{#                <input type="radio" name="Carbohydrates">#}
+{#            </label>#}
+{#            <br>#}
+{#            <input type="submit" value="Filter" name="Filter">#}
+{##}
+{#        </form>#}
+{#        <h2>The values are presented for 100g portion</h2>#}
+{#        <table>#}
+{#            <tr>#}
+{#                <th>Name</th>#}
+{#                <th>Calories</th>#}
+{#                <th>Proteins</th>#}
+{#                <th>Fats</th>#}
+{#                <th>Carbohydrates</th>#}
+{#            </tr>#}
+{##}
+{#            {% for instance in queryset %}#}
+{#                <tr>#}
+{#                    <td>{{ instance.name }}</td>#}
+{#                    <td>{{ instance.compute_calories }}</td>#}
+{#                    <td>{{ instance.proteins }}</td>#}
+{#                    <td>{{ instance.fats }}</td>#}
+{#                    <td>{{ instance.carbohydrates }}</td>#}
+{#                </tr>#}
+{##}
+{#            {% endfor %}#}
+{#        </table>#}
+{##}
+{#        {% endif %}#}
 
-        {% endif %}
+
+
 {#        <ul style="list-style-type: circle">#}
 {#        {% for instance in queryset %}#}
 {#            <li>#}
