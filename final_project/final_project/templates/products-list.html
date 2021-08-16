@@ -36,6 +36,16 @@
             color: red;
             font-size: 35px;
         }
+
+        .right-table {
+            float: right;
+        }
+
+        #table1, #table2 {
+            float: left;
+            width: 30%;
+        }
+
     </style>
     <div class="left-form">
         <form style="display: inline;" method="get">
@@ -51,44 +61,61 @@
             {% csrf_token %}
             {{ form_calories.as_p }}
             <input type="submit" value="Add" name="Add">
+            <input formnovalidate type="submit" value="Clear" name="Clear All">
         </form>
     </div>
 
     {% if invalid_values %}
         <p class="invalid_values">Min value should be smaller or equal to max value</p>
     {% else %}
-
-        <table>
-            <tr>
-                <th>Name</th>
-                <th>Calories</th>
-                <th>Proteins</th>
-                <th>Carbohydrates</th>
-                <th>Fats</th>
-            </tr>
-
-            {% for instance in queryset %}
+        <div class="right-table">
+            <table>
                 <tr>
-                    <td>{{ instance.name }}</td>
-                    <td>{{ instance.calories }}</td>
-                    <td>{{ instance.proteins }}</td>
-                    <td>{{ instance.carbohydrates }}</td>
-                    <td>{{ instance.fats }}</td>
+                    <th>Name</th>
+                    <th>Calories</th>
+                    <th>Proteins(g)</th>
+                    <th>Carbohydrates(g)</th>
+                    <th>Fats(g)</th>
                 </tr>
-            {% endfor %}
-        </table>
+
+                {% for instance in queryset %}
+                    <tr>
+                        <td>{{ instance.name }}</td>
+                        <td>{{ instance.calories }}</td>
+                        <td>{{ instance.proteins }}</td>
+                        <td>{{ instance.carbohydrates }}</td>
+                        <td>{{ instance.fats }}</td>
+                    </tr>
+                {% endfor %}
+            </table>
+        </div>
     {% endif %}
 
     {% if product_list %}
-        <table>
+        <table id="table1">
+            <tr>
+                <th>Calories</th>
+                <th>Proteins(g)</th>
+                <th>Carbohydrates(g)</th>
+                <th>Fats(g)</th>
+            </tr>
+            <tr>
+                <td>{{ total_calories }}</td>
+                <td>{{ total_proteins }}</td>
+                <td>{{ total_carbohydrates }}</td>
+                <td>{{ total_fats }}</td>
+            </tr>
+
+        </table>
+        <table id="table2">
             <tr>
                 <th>Index</th>
                 <th>Name</th>
-                <th>Calories</th>
-                <th>Protein</th>
-                <th>Fats</th>
-                <th>Carbohydrates</th>
-                <th>Quantity</th>
+                <th>Calories(g)</th>
+                <th>Proteins(g)</th>
+                <th>Carbohydrates(g)</th>
+                <th>Fats(g)</th>
+                <th>Quantity(g)</th>
             </tr>
 
             {% for product, quantity in product_list %}
@@ -97,8 +124,8 @@
                     <td>{{ product.name }}</td>
                     <td>{{ product.calories|quantity_converter:quantity }} </td>
                     <td>{{ product.proteins|quantity_converter:quantity }}</td>
-                    <td>{{ product.fats|quantity_converter:quantity }}</td>
                     <td>{{ product.carbohydrates|quantity_converter:quantity }}</td>
+                    <td>{{ product.fats|quantity_converter:quantity }}</td>
                     <td>{{ quantity }}</td>
                 </tr>
             {% endfor %}
