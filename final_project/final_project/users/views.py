@@ -4,7 +4,7 @@ from .models import User
 from django.contrib import messages
 from django.contrib.auth import logout, login
 from django.http import HttpResponseRedirect
-from django.contrib.auth import views
+from django.contrib.auth import views, authenticate
 
 # Create your views here.
 
@@ -44,12 +44,11 @@ def login_view(request):
         if form.is_valid():
             username = form.cleaned_data.get('username')
             password = form.cleaned_data.get('password')
-            # authenticate!!!
-            try:
-                account = User.objects.get(username=username, password=password)
-            except User.DoesNotExist:
-                account = None
-            # account = authenticate(request, username=username, password=password)
+            # try:
+            #     account = User.objects.get(username=username, password=password)
+            # except User.DoesNotExist:
+            #     account = None
+            account = authenticate(request, username=username, password=password)
             if account is None:
                 messages.error(request, 'Username or password incorrect')
                 return HttpResponseRedirect(reverse('login'))
