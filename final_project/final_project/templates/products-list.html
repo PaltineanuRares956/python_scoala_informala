@@ -1,3 +1,5 @@
+{% load custom_tags %}
+
 {% if not user.is_authenticated %}
     <h2>You are not logged in</h2>
     <h2>Click <a href="{% url 'login' %}">here</a> to log in.</h2>
@@ -5,23 +7,55 @@
 
 {% else %}
     <style>
+        table {
+            margin-top: 20px;
+        }
+
         table, th, td {
             border: 1px solid black;
             border-collapse: collapse;
         }
+
         td {
             text-align: center;
         }
-    </style>
-    <form method="get">
-        {% csrf_token %}
-        {{ form.as_p }}
-        <input formnovalidate type="submit" value="Show All" name="All">
-        <input type="submit" value="Filter" name="Filter">
-    </form>
 
-    {% if invalid %}
-        Min value should be smaller or equal to max value
+        .left-form {
+            float: left;
+            width: 25%;
+        }
+
+        .right-form {
+            float: left;
+            width: 50%;
+        }
+
+        .invalid_values {
+            position: absolute;
+            top: 38%;
+            color: red;
+            font-size: 35px;
+        }
+    </style>
+    <div class="left-form">
+        <form style="display: inline;" method="get">
+            {% csrf_token %}
+            {{ form.as_p }}
+            <input formnovalidate type="submit" value="Show All" name="All">
+            <input type="submit" value="Filter" name="Filter">
+        </form>
+    </div>
+
+    <div class="right-form">
+        <form class="form-calories" method="get">
+            {% csrf_token %}
+            {{ form_calories.as_p }}
+            <input type="submit" value="Add" name="Add">
+        </form>
+    </div>
+
+    {% if invalid_values %}
+        <p class="invalid_values">Min value should be smaller or equal to max value</p>
     {% else %}
 
         <table>
@@ -44,86 +78,30 @@
             {% endfor %}
         </table>
     {% endif %}
-{##}
-{#    {% if queryset %}#}
-{#        <style>#}
-{#            table, th, td {#}
-{#                border: 1px solid black;#}
-{#                border-collapse: collapse;#}
-{#            }#}
-{#            td {#}
-{#                text-align: center;#}
-{#            }#}
-{#        </style>#}
-{#        <form method="get">#}
-{#            <input type="number" value="Min value" name="Min" placeholder="Min Value">#}
-{#            <input type="number" value="Max value" name="Max" placeholder="Max Value">#}
-{#            <br>#}
-{#            <label>#}
-{#                Proteins#}
-{#                <input type="radio" name="Proteins">#}
-{#            </label>#}
-{#            <br>#}
-{##}
-{#            <label>#}
-{#                Fats#}
-{#                <input type="radio" name="Fats">#}
-{#            </label>#}
-{#            <br>#}
-{##}
-{#            <label>#}
-{#                Carbohydrates#}
-{#                <input type="radio" name="Carbohydrates">#}
-{#            </label>#}
-{#            <br>#}
-{#            <input type="submit" value="Filter" name="Filter">#}
-{##}
-{#        </form>#}
-{#        <h2>The values are presented for 100g portion</h2>#}
-{#        <table>#}
-{#            <tr>#}
-{#                <th>Name</th>#}
-{#                <th>Calories</th>#}
-{#                <th>Proteins</th>#}
-{#                <th>Fats</th>#}
-{#                <th>Carbohydrates</th>#}
-{#            </tr>#}
-{##}
-{#            {% for instance in queryset %}#}
-{#                <tr>#}
-{#                    <td>{{ instance.name }}</td>#}
-{#                    <td>{{ instance.compute_calories }}</td>#}
-{#                    <td>{{ instance.proteins }}</td>#}
-{#                    <td>{{ instance.fats }}</td>#}
-{#                    <td>{{ instance.carbohydrates }}</td>#}
-{#                </tr>#}
-{##}
-{#            {% endfor %}#}
-{#        </table>#}
-{##}
-{#        {% endif %}#}
 
+    {% if product_list %}
+        <table>
+            <tr>
+                <th>Index</th>
+                <th>Name</th>
+                <th>Calories</th>
+                <th>Protein</th>
+                <th>Fats</th>
+                <th>Carbohydrates</th>
+                <th>Quantity</th>
+            </tr>
 
-
-{#        <ul style="list-style-type: circle">#}
-{#        {% for instance in queryset %}#}
-{#            <li>#}
-{#                <label>Name: </label>#}
-{#                {{ instance.name }}#}
-{##}
-{#                <label>Proteins: </label>#}
-{#                {{ instance.proteins }}#}
-{##}
-{#                <label>Fats: </label>#}
-{#                {{ instance.fats }}#}
-{##}
-{#                <label>Carbohydrates: </label>#}
-{#                {{ instance.carbohydrates }}#}
-{#            </li>#}
-{#        {% endfor %}#}
-{#        </ul>#}
-{#    {% else %}#}
-{#        <p>There are no products for the moment!</p>#}
-{#    {% endif %}#}
-
+            {% for product, quantity in product_list %}
+                <tr>
+                    <td>{{ forloop.counter }}</td>
+                    <td>{{ product.name }}</td>
+                    <td>{{ product.calories|quantity_converter:quantity }} </td>
+                    <td>{{ product.proteins|quantity_converter:quantity }}</td>
+                    <td>{{ product.fats|quantity_converter:quantity }}</td>
+                    <td>{{ product.carbohydrates|quantity_converter:quantity }}</td>
+                    <td>{{ quantity }}</td>
+                </tr>
+            {% endfor %}
+        </table>
+    {% endif %}
 {% endif %}

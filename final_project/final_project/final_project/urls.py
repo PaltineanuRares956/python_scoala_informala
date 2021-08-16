@@ -14,22 +14,24 @@ Including another URLconf
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
 from django.contrib import admin
-from django.urls import path, include
+from django.urls import path
 from django.conf.urls import url
 from django.views.generic import RedirectView
-# from django.contrib.auth import views
 from users.views import register_view, home_view, login_view, MyLogoutView
-from products.views import products_view, products_list_view
+from products.views import products_list_view
+
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', home_view, name='home'),
-    # path('', include('django.contrib.auth.urls')),
-    # path('logout/', log_out),
     path('register/', register_view, name='register'),
     path('login/', login_view, name='login'),
-    # path('products/', products_view, name='products'),
-    # path('logout/', views.LogoutView.as_view(), name='logout'),
     path('logout/', MyLogoutView.as_view(), name='logout'),
-    url(r'^favicon\.ico$',RedirectView.as_view(url='/static/images/favicon.ico')),
-    path('products-list/', products_list_view, name='products-list')
+    path('products-list/', products_list_view, name='products-list'),
+    url(r'^favicon\.ico$', RedirectView.as_view(url='/static/images/favicon.ico'))
 ]
+
+# path('', include('django.contrib.auth.urls')),
+# path('logout/', log_out),
+
+# path('products/', products_view, name='products'),
+# path('logout/', views.LogoutView.as_view(), name='logout'),
