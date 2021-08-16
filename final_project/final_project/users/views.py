@@ -1,6 +1,5 @@
 from django.shortcuts import render, redirect, reverse
 from .forms import CreateUserForm, LoginForm
-from .models import User
 from django.contrib import messages
 from django.contrib.auth import logout, login
 from django.http import HttpResponseRedirect
@@ -22,7 +21,6 @@ def register_view(request):
             return HttpResponseRedirect(reverse('login'))
 
         form = CreateUserForm(request.POST)
-        print(form)
         if form.is_valid():
             form.save()
             messages.info(request, 'Account created')
@@ -52,7 +50,6 @@ def login_view(request):
             if account is None:
                 messages.error(request, 'Username or password incorrect')
                 return HttpResponseRedirect(reverse('login'))
-            print('123123')
             login(request, account)
             # request.session['username'] = request.POST.get('username')
             return HttpResponseRedirect(reverse('home'))
