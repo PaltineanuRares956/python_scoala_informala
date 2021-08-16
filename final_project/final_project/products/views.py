@@ -51,13 +51,29 @@ def products_list_view(request):
                 try:
                     product = Product.objects.get(name=request.GET.get('product_name'))
                 except Product.DoesNotExist:
-                    context['invalid_product_name'] = True
                     raise ValueError('Invalid product name')
 
-                if context.get('invalid_product_name'):
-                    context.pop('invalid_product_name')
                 quantity = request.GET.get('quantity')
                 product_list.append((product, quantity))
+                calories, proteins, carbohydrates, fats = get_values()
                 context['product_list'] = product_list
+                context['total_calories'] = calories
+                context['total_proteins'] = proteins
+                context['total_carbohydrates'] = carbohydrates
+                context['total_fats'] = fats
 
     return render(request, 'products-list.html', context)
+
+
+def get_values():
+    global product_list
+    calories, proteins, carbohydrates, fats = 0, 0, 0, 0
+
+    for product, quantity in product_list:
+        calories += product.calories * int(quantity) / 100
+        proteins += product.proteins * int(quantity) / 100
+        carbohydrates += product.carbohydrates * int(quantity) / 100
+        fats += product.fats * int(quantity) / 100
+
+    return calories, proteins, carbohydrates, fats
+

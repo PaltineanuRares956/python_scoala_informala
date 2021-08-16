@@ -57,7 +57,6 @@
     {% if invalid_values %}
         <p class="invalid_values">Min value should be smaller or equal to max value</p>
     {% else %}
-
         <table>
             <tr>
                 <th>Name</th>
@@ -82,12 +81,25 @@
     {% if product_list %}
         <table>
             <tr>
+                <th>Calories</th>
+                <th>Proteins</th>
+                <th>Carbohydrates</th>
+                <th>Fats</th>
+            </tr>
+
+            <td>{{ total_calories }}</td>
+            <td>{{ total_proteins }}</td>
+            <td>{{ total_carbohydrates }}</td>
+            <td>{{ total_fats }}</td>
+        </table>
+        <table>
+            <tr>
                 <th>Index</th>
                 <th>Name</th>
                 <th>Calories</th>
-                <th>Protein</th>
-                <th>Fats</th>
+                <th>Proteins</th>
                 <th>Carbohydrates</th>
+                <th>Fats</th>
                 <th>Quantity</th>
             </tr>
 
@@ -97,8 +109,8 @@
                     <td>{{ product.name }}</td>
                     <td>{{ product.calories|quantity_converter:quantity }} </td>
                     <td>{{ product.proteins|quantity_converter:quantity }}</td>
-                    <td>{{ product.fats|quantity_converter:quantity }}</td>
                     <td>{{ product.carbohydrates|quantity_converter:quantity }}</td>
+                    <td>{{ product.fats|quantity_converter:quantity }}</td>
                     <td>{{ quantity }}</td>
                 </tr>
             {% endfor %}
