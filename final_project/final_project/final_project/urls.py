@@ -27,7 +27,7 @@ urlpatterns = [
     # path('logout/', log_out),
     path('register/', register_view, name='register'),
     path('login/', login_view, name='login'),
-    path('products/', products_view, name='products'),
+    # path('products/', products_view, name='products'),
     # path('logout/', views.LogoutView.as_view(), name='logout'),
     path('logout/', MyLogoutView.as_view(), name='logout'),
     url(r'^favicon\.ico$',RedirectView.as_view(url='/static/images/favicon.ico')),

@@ -6,7 +6,7 @@ from django.contrib.auth.models import AbstractBaseUser, BaseUserManager, Permis
 
 class UserManager(BaseUserManager):
 
-    def create_user(self, username, password, email):
+    def create_user(self, email, username, password):
         if not username:
             raise ValueError('Username not defined')
         if not password:
@@ -19,8 +19,8 @@ class UserManager(BaseUserManager):
             email=email
         )
 
-        # user.set_password(password)
-        user.password = password
+        user.set_password(password)
+        # user.password = password
         user.save(using=self._db)
         return user
 
