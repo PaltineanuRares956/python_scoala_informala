@@ -19,8 +19,8 @@ class UserManager(BaseUserManager):
             email=email
         )
 
-        user.set_password(password)
-        # user.password = password
+        # user.set_password(password)
+        user.password = password
         user.save(using=self._db)
         return user
 

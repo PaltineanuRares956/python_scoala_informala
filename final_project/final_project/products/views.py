@@ -25,7 +25,7 @@ def products_list_view(request):
     }
 
     if request.GET:
-        #if request.GET.get('min_value') != '' and request.GET.get('max_value') != '':
+        # if request.GET.get('min_value') != '' and request.GET.get('max_value') != '':
         if 'All' not in request.GET:
             min_value = request.GET.get('min_value')
             max_value = request.GET.get('max_value')
@@ -39,6 +39,8 @@ def products_list_view(request):
                     queryset = Product.objects.filter(fats__gte=min_value, fats__lte=max_value)
                 elif filter_choice == 'carbohydrate':
                     queryset = Product.objects.filter(carbohydrates__gte=min_value, carbohydrates__lte=max_value)
+                elif filter_choice == 'calorie':
+                    queryset = Product.objects.filter(compute_calories__gte=min_value, compute_calories__lte=max_value)
                 context['queryset'] = queryset
     # if request.GET:
     #    print('123')
@@ -53,6 +55,5 @@ def products_list_view(request):
     #            context['fats'] = True
     #        if 'Carbohydrates' in request.GET:
     #            context['carbohydrates'] = True
-
 
     return render(request, 'products-list.html', context)

@@ -1,6 +1,7 @@
 from django import forms
 
 FILTER_CHOICES = [
+    ('calorie', 'Calories'),
     ('protein', 'Proteins'),
     ('fat', 'Fats'),
     ('carbohydrate', 'Carbohydrates')
