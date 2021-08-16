@@ -17,10 +17,7 @@ class MyUserAdmin(UserAdmin):
          ),
     )
     list_filter = []
-    fieldsets = [
-        # (None, {'fields': ['email', 'username', 'password']}),
-        # (('Permissions'), {'fields': ['is_staff', 'is_superuser']})
-    ]
+    fieldsets = []
 
 
 admin.site.register(User, MyUserAdmin)

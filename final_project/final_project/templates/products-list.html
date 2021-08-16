@@ -1,11 +1,6 @@
 {% load custom_tags %}
 
-{% if not user.is_authenticated %}
-    <h2>You are not logged in</h2>
-    <h2>Click <a href="{% url 'login' %}">here</a> to log in.</h2>
-    <h2>Click <a style="color: red;" href="{% url 'register' %}">here</a> to register</h2>
-
-{% else %}
+{% if user.is_authenticated %}
     <style>
         table {
             margin-top: 20px;
@@ -131,4 +126,8 @@
             {% endfor %}
         </table>
     {% endif %}
+{% else %}
+    <h2>You are not logged in</h2>
+    <h2>Click <a href="{% url 'login' %}">here</a> to log in.</h2>
+    <h2>Click <a style="color: red;" href="{% url 'register' %}">here</a> to register</h2>
 {% endif %}
