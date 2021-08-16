@@ -1,3 +1,4 @@
+
 <style>
     li button:hover {
         background-color: purple;
@@ -24,7 +25,6 @@
         font-size: 25px
     }
 </style>
-
 <form action="login" method="GET">
     <ul>
         {% if user.is_authenticated %}
@@ -64,11 +64,14 @@
         </li>
     </ul>
 </form>
-
-{% if not user.is_authenticated %}
+{% if user.is_authenticated %}
+    <p>First-name: Rares-Mihai</p>
+    <p>Last-name: Paltineanu</p>
+{% else %}
     <p style="text-align: center; font-size: 40px; color: red;">
         You are not logged in
         <br>
         Create an account by pressing the register button or log in with an existing account
     </p>
+
 {% endif %}
