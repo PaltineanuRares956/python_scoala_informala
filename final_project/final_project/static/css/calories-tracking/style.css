@@ -1,0 +1,62 @@
+li button:hover{
+    background-color: purple;
+}
+.header li {
+    float: right;
+}
+li button{
+    display: block;
+    font-size: 25px;
+    margin: 10px;
+    background-color: green;
+}
+
+ul.header {
+    list-style-type: none;
+    overflow: auto;
+    background-color: chocolate;
+}
+
+button {
+    padding: 0;
+    border: none;
+    font-size: 25px
+}
+table {
+    margin-top: 20px;
+}
+
+table, th, td {
+    border: 1px solid black;
+    border-collapse: collapse;
+}
+
+td {
+    text-align: center;
+}
+
+.left-form {
+    float: left;
+    width: 25%;
+}
+
+.right-form {
+    float: left;
+    width: 50%;
+}
+
+.invalid_values {
+    position: absolute;
+    top: 55%;
+    color: red;
+    font-size: 35px;
+}
+
+.right-table {
+    float: right;
+}
+
+#table1, #table2 {
+    float: left;
+    width: 30%;
+}

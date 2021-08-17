@@ -25,7 +25,7 @@ def products_list_view(request):
         if 'Log Out' in request.GET:
             return HttpResponseRedirect(reverse('login'))
         if 'All' in request.GET:
-            return render(request, 'products-list.html', context)
+            return render(request, 'calories-tracking.html', context)
         if 'Filter' in request.GET:
             min_value = int(request.GET.get('min_value'))
             max_value = int(request.GET.get('max_value'))
@@ -64,7 +64,7 @@ def products_list_view(request):
             product_list = []
             context['product_list'] = product_list
 
-    return render(request, 'products-list.html', context)
+    return render(request, 'calories-tracking.html', context)
 
 
 def product_exists(new_product, new_quantity):

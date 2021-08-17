@@ -26,4 +26,3 @@ urlpatterns = [
     path('calories-counter/', products_list_view, name='calories-counter'),
     # url(r'^favicon\.ico$', RedirectView.as_view(url='/static/images/favicon.ico'))
 ]
-
