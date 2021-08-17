@@ -1,6 +1,4 @@
 from django import forms
-from django.core.validators import MaxValueValidator
-from django.core.validators import MinValueValidator
 FILTER_CHOICES = [
     ('calorie', 'Calories'),
     ('protein', 'Proteins'),
@@ -10,14 +8,10 @@ FILTER_CHOICES = [
 
 
 class FilterProductForm(forms.Form):
-    min_value = forms.DecimalField(decimal_places=2,
-                                   max_digits=4,
-                                   min_value=0,
-                                   required=False)
-    max_value = forms.DecimalField(decimal_places=2,
-                                   max_digits=4,
-                                   min_value=0,
-                                   required=False)
+    min_value = forms.IntegerField(required=True,
+                                   min_value=0)
+    max_value = forms.IntegerField(required=True,
+                                   min_value=0)
     filter_choice = forms.CharField(widget=forms.RadioSelect(choices=FILTER_CHOICES))
 
 

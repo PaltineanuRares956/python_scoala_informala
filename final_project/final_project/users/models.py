@@ -67,18 +67,6 @@ class User(AbstractBaseUser, PermissionsMixin):
     class Meta:
         db_table = 'users'
 
-    # @property
-    # def is_staff(self):
-    #     return self.is_staff
-#
-    # @property
-    # def is_admin(self):
-    #     return self.is_admin
-#
-    # @property
-    # def is_active(self):
-    #     return self.is_active
-#
     def get_username(self):
         return self.username
 

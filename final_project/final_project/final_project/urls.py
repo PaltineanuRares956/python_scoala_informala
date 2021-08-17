@@ -15,9 +15,7 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path
-from django.conf.urls import url
-from django.views.generic import RedirectView
-from users.views import register_view, home_view, login_view, MyLogoutView
+from users.views import register_view, home_view, login_view
 from products.views import products_list_view
 
 urlpatterns = [
@@ -25,13 +23,7 @@ urlpatterns = [
     path('', home_view, name='home'),
     path('register/', register_view, name='register'),
     path('login/', login_view, name='login'),
-    path('logout/', MyLogoutView.as_view(), name='logout'),
-    path('products-list/', products_list_view, name='products-list'),
-    url(r'^favicon\.ico$', RedirectView.as_view(url='/static/images/favicon.ico'))
+    path('calories-counter/', products_list_view, name='calories-counter'),
+    # url(r'^favicon\.ico$', RedirectView.as_view(url='/static/images/favicon.ico'))
 ]
 
-# path('', include('django.contrib.auth.urls')),
-# path('logout/', log_out),
-
-# path('products/', products_view, name='products'),
-# path('logout/', views.LogoutView.as_view(), name='logout'),
