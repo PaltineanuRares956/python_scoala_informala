@@ -5,15 +5,6 @@ from .forms import FilterProductForm, CaloriesCounterForm
 # Create your views here.
 
 
-def products_view(request):
-
-    if request.POST:
-        if 'Products' in request.POST:
-            return HttpResponseRedirect(reverse('products-list'))
-
-    return render(request, 'products.html', {})
-
-
 product_list = []
 
 
@@ -28,6 +19,11 @@ def products_list_view(request):
     }
     global product_list
     if request.GET:
+        if 'Home' in request.GET:
+            print('123123')
+            return HttpResponseRedirect(reverse('home'))
+        if 'Log Out' in request.GET:
+            return HttpResponseRedirect(reverse('login'))
         if 'All' in request.GET:
             return render(request, 'products-list.html', context)
         if 'Filter' in request.GET:

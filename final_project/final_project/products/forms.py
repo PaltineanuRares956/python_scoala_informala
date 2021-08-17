@@ -8,8 +8,10 @@ FILTER_CHOICES = [
 
 
 class FilterProductForm(forms.Form):
-    min_value = forms.IntegerField(required=True,)
-    max_value = forms.IntegerField(required=True)
+    min_value = forms.IntegerField(required=True,
+                                   min_value=0)
+    max_value = forms.IntegerField(required=True,
+                                   min_value=0)
     filter_choice = forms.CharField(widget=forms.RadioSelect(choices=FILTER_CHOICES))
 
 

@@ -3,13 +3,17 @@
     li button:hover {
         background-color: purple;
     }
+
     li {
         float: right;
     }
+
     li button {
         display: block;
         font-size: 25px;
         margin: 10px;
+        padding: 0;
+        border: none;
         background-color: green;
     }
 
@@ -18,38 +22,33 @@
         overflow: auto;
         background-color: chocolate;
     }
-
-    button {
-        padding: 0;
-        border: none;
-        font-size: 25px
-    }
 </style>
-<form action="login" method="GET">
+
+<form method="GET">
     <ul>
         {% if user.is_authenticated %}
             <li>
-                <button type="submit">
+                <button formaction="login" type="submit">
                     Log out
                 </button>
             </li>
 
             <li>
-                <button type="submit" formaction="calories-counter" >
+                <button formaction="calories-counter" type="submit">
                     Products
                 </button>
             </li>
         {% else %}
 
             <li>
-                <button type="submit" formaction="register">
+                <button formaction="register" type="submit">
                     Register
                 </button>
 
             </li>
 
             <li>
-                <button type="submit">
+                <button formaction="login" type="submit">
                     Log in
                 </button>
             </li>
@@ -58,8 +57,10 @@
     </ul>
 </form>
 {% if user.is_authenticated %}
+    <p style="text-align: center; font-size: 60px; color: green;">Calories Tracking</p>
     <p>First-name: Rares-Mihai</p>
     <p>Last-name: Paltineanu</p>
+    <p>Professor: Marius Chincisan</p>
 {% else %}
     <p style="text-align: center; font-size: 40px; color: red;">
         You are not logged in
