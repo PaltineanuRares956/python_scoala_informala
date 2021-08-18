@@ -1,71 +1,52 @@
+{% load static %}
+<link rel="stylesheet" href="/static/css/home/style.css">
 
-<style>
-    li button:hover {
-        background-color: purple;
-    }
+<body class="background-img">
+    <form method="GET">
+        <ul>
+            {% if user.is_authenticated %}
+                <li>
+                    <button formaction="logout" type="submit">
+                        Log out
+                    </button>
+                </li>
 
-    li {
-        float: right;
-    }
+                <li>
+                    <button formaction="calories-counter" type="submit">
+                        Products
+                    </button>
+                </li>
+            {% else %}
 
-    li button {
-        display: block;
-        font-size: 25px;
-        margin: 10px;
-        padding: 0;
-        border: none;
-        background-color: green;
-    }
+                <li>
+                    <button formaction="register" type="submit">
+                        Register
+                    </button>
 
-    ul {
-        list-style-type: none;
-        overflow: auto;
-        background-color: chocolate;
-    }
-</style>
+                </li>
 
-<form method="GET">
-    <ul>
-        {% if user.is_authenticated %}
-            <li>
-                <button formaction="login" type="submit">
-                    Log out
-                </button>
-            </li>
+                <li>
+                    <button formaction="login" type="submit">
+                        Log in
+                    </button>
+                </li>
 
-            <li>
-                <button formaction="calories-counter" type="submit">
-                    Products
-                </button>
-            </li>
-        {% else %}
+            {% endif %}
+        </ul>
+    </form>
+    {% if user.is_authenticated %}
+        <p class="title">Calories Tracking</p>
+        <div class="project-info">
+            <p>First-name: Rares-Mihai</p>
+            <p>Last-name: Paltineanu</p>
+            <p>Professor: Marius Chincisan</p>
+        </div>
+    {% else %}
+        <p class="unregistered-account">
+            You are not logged in
+            <br>
+            Create an account by pressing the register button or log in with an existing account
+        </p>
 
-            <li>
-                <button formaction="register" type="submit">
-                    Register
-                </button>
-
-            </li>
-
-            <li>
-                <button formaction="login" type="submit">
-                    Log in
-                </button>
-            </li>
-
-        {% endif %}
-    </ul>
-</form>
-{% if user.is_authenticated %}
-    <p style="text-align: center; font-size: 60px; color: green;">Calories Tracking</p>
-    <p>First-name: Rares-Mihai</p>
-    <p>Last-name: Paltineanu</p>
-    <p>Professor: Marius Chincisan</p>
-{% else %}
-    <p style="text-align: center; font-size: 40px; color: red;">
-        You are not logged in
-        <br>
-        Create an account by pressing the register button or log in with an existing account
-    </p>
-
-{% endif %}
+    {% endif %}
+</body>

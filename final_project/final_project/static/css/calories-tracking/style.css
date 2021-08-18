@@ -1,0 +1,68 @@
+li button:hover{
+    background-color: lightblue;
+}
+.header li {
+    float: right;
+}
+li button{
+    display: block;
+    font-size: 25px;
+    margin: 10px;
+    background-color: white;
+    font-family: "Papyrus", Fantasy;
+}
+
+ul.header {
+    list-style-type: none;
+    overflow: auto;
+}
+
+button {
+    padding: 0;
+    border: none;
+    font-size: 25px
+}
+table {
+    margin-top: 20px;
+}
+
+table, th, td {
+    border: 1px solid black;
+    border-collapse: collapse;
+}
+
+td {
+    text-align: center;
+}
+
+.left-form {
+    float: left;
+    width: 25%;
+}
+
+.right-form {
+    float: left;
+    width: 50%;
+}
+
+.right-table {
+    position: absolute;
+    top: 78px;
+    right: 10px;
+}
+
+#table {
+    width: 30%;
+}
+
+.background-img {
+    background-image: url("/static/images/white.jpg");
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: cover;
+    z-index: -2;
+}
+
+body {
+    overflow-y: scroll;
+}

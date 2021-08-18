@@ -1,0 +1,48 @@
+li button:hover {
+        background-color: purple;
+}
+
+li {
+    float: right;
+}
+
+li button {
+    display: block;
+    font-size: 25px;
+    margin: 10px;
+    padding: 0;
+    border: none;
+    background-color: white;
+    font-family: "Papyrus", Fantasy;
+}
+
+ul {
+    list-style-type: none;
+    overflow: auto;
+}
+
+.title {
+    text-align: center;
+    font-size: 55px;
+    font-family: "Papyrus", Fantasy;
+}
+
+.project-info {
+    text-align: center;
+    font-size: 25px;
+    font-family: "Papyrus", Fantasy;
+}
+
+.unregistered-account {
+    text-align: center;
+    font-size: 40px;
+}
+body {
+
+}
+
+.background-img {
+    background-image: url("/static/images/avocado.jpg");
+    background-repeat: repeat-x;
+    z-index: -2;
+}
