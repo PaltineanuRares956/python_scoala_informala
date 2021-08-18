@@ -1,5 +1,5 @@
 li button:hover{
-    background-color: purple;
+    background-color: lightblue;
 }
 .header li {
     float: right;
@@ -8,13 +8,13 @@ li button{
     display: block;
     font-size: 25px;
     margin: 10px;
-    background-color: green;
+    background-color: white;
+    font-family: "Papyrus", Fantasy;
 }
 
 ul.header {
     list-style-type: none;
     overflow: auto;
-    background-color: chocolate;
 }
 
 button {
@@ -45,18 +45,24 @@ td {
     width: 50%;
 }
 
-.invalid_values {
-    position: absolute;
-    top: 55%;
-    color: red;
-    font-size: 35px;
-}
-
 .right-table {
-    float: right;
+    position: absolute;
+    top: 78px;
+    right: 10px;
 }
 
-#table1, #table2 {
-    float: left;
+#table {
     width: 30%;
+}
+
+.background-img {
+    background-image: url("/static/images/white.jpg");
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: cover;
+    z-index: -2;
+}
+
+body {
+    overflow-y: scroll;
 }

@@ -1,3 +1,5 @@
+import time
+
 from django.shortcuts import render, reverse
 from .models import Product
 from django.http import HttpResponseRedirect
@@ -9,32 +11,39 @@ product_list = []
 
 
 def products_list_view(request):
-    form = FilterProductForm()
+    form_filter = FilterProductForm()
     form_calories = CaloriesCounterForm()
     queryset = Product.objects.all()
-    context = {
-        'form': form,
-        'form_calories': form_calories,
-        'queryset': queryset
-    }
     global product_list
+    context = {
+        'form_filter': form_filter,
+        'form_calories': form_calories,
+        'queryset': queryset,
+        'product_list': product_list
+    }
+
+    context = update_values_product_list(context)
     if request.GET:
+
         if 'Home' in request.GET:
-            print('123123')
             return HttpResponseRedirect(reverse('home'))
+
         if 'Log Out' in request.GET:
-            return HttpResponseRedirect(reverse('login'))
+            return HttpResponseRedirect(reverse('logout'))
+
         if 'All' in request.GET:
             return render(request, 'calories-tracking.html', context)
+
         if 'Filter' in request.GET:
+
             min_value = int(request.GET.get('min_value'))
             max_value = int(request.GET.get('max_value'))
             filter_choice = request.GET.get('filter_choice')
+
             if min_value > max_value:
-                context['invalid_values'] = True
+                return render(request, 'calories-tracking.html', context)
             else:
-                if context.get('invalid_values'):
-                    context.pop('invalid_values')
+
                 if filter_choice == 'protein':
                     queryset = Product.objects.filter(proteins__gte=min_value, proteins__lte=max_value)
                 elif filter_choice == 'fat':
@@ -43,8 +52,10 @@ def products_list_view(request):
                     queryset = Product.objects.filter(carbohydrates__gte=min_value, carbohydrates__lte=max_value)
                 elif filter_choice == 'calorie':
                     queryset = Product.objects.filter(calories__gte=min_value, calories__lte=max_value)
+
                 context['queryset'] = queryset
         elif 'Add' in request.GET:
+
             try:
                 product = Product.objects.get(name=request.GET.get('product_name'))
             except Product.DoesNotExist:
@@ -54,15 +65,12 @@ def products_list_view(request):
             if not product_exists(product, quantity):
                 product_list.append([product, quantity])
 
-            calories, proteins, carbohydrates, fats = get_values()
             context['product_list'] = product_list
-            context['total_calories'] = calories
-            context['total_proteins'] = proteins
-            context['total_carbohydrates'] = carbohydrates
-            context['total_fats'] = fats
+            context = update_values_product_list(context)
         elif 'Clear All' in request.GET:
             product_list = []
             context['product_list'] = product_list
+            context = update_values_product_list(context)
 
     return render(request, 'calories-tracking.html', context)
 
@@ -70,12 +78,23 @@ def products_list_view(request):
 def product_exists(new_product, new_quantity):
 
     global product_list
+
     for index, inner_list in enumerate(product_list):
         product, quantity = inner_list
         if product.name == new_product.name:
             product_list[index] = [product, quantity + new_quantity]
             return True
     return False
+
+
+def update_values_product_list(context):
+    global product_list
+    calories, proteins, carbohydrates, fats = get_values()
+    context['total_calories'] = calories
+    context['total_proteins'] = proteins
+    context['total_carbohydrates'] = carbohydrates
+    context['total_fats'] = fats
+    return context
 
 
 def get_values():
@@ -87,5 +106,4 @@ def get_values():
         proteins += product.proteins * quantity / 100
         carbohydrates += product.carbohydrates * quantity / 100
         fats += product.fats * quantity / 100
-
     return calories, proteins, carbohydrates, fats
