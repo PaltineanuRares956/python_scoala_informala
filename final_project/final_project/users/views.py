@@ -11,7 +11,7 @@ from django.contrib.auth import authenticate
 def register_view(request):
     context = {}
     if request.user.is_authenticated:
-        return redirect('')
+        return redirect('home')
 
     form = CreateUserForm()
     if request.method == "POST":
@@ -31,8 +31,11 @@ def register_view(request):
 
 
 def login_view(request):
+
     context = {}
 
+    if request.user.is_authenticated:
+        return redirect('home')
     form = LoginForm()
     if request.POST:
 

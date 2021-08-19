@@ -29,6 +29,7 @@ def products_list_view(request):
             return HttpResponseRedirect(reverse('home'))
 
         if 'Log Out' in request.GET:
+
             return HttpResponseRedirect(reverse('logout'))
 
         if 'All' in request.GET:
