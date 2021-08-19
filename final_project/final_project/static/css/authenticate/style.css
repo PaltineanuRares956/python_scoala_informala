@@ -1,0 +1,7 @@
+.background-img {
+    background-image: url("/static/images/white.jpg");
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
+    z-index: -2;
+}

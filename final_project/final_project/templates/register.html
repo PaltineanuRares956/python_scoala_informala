@@ -1,5 +1,6 @@
 <h2>Register</h2>
-
+<link rel="stylesheet" href="/static/css/authenticate/style.css">
+<body class="background-img">
 {% block content %}
     <form method="post">
         {% csrf_token %}
@@ -11,3 +12,4 @@
     </form>
 
 {% endblock %}
+</body>
